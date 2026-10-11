@@ -1,33 +1,37 @@
+
+// Heading
 let heading = document.createElement('H1');
 heading.textContent = 'Sticky Notes';
-
 document.body.appendChild(heading);
 
+//Textarea for input
 let textarea = document.createElement('TEXTAREA');
 textarea.id = 'noteInput';
 textarea.placeholder = 'Type a new note...';
 
-
+// Add button
 let addButton = document.createElement('BUTTON');
 addButton.textContent = '+';
 
+// Container for input and button and panel (grey colored div)
 let panel = document.createElement("div");
 let inputContainer = document.createElement("div");
-
-
-const body = document.querySelector("body");
-
 inputContainer.append(textarea, addButton);
 
 panel.append(heading, inputContainer);
 document.body.appendChild(panel);
 
+
+const body = document.querySelector("body");
+
+// Styling(body)
 body.style.margin = "0";
 body.style.padding = "0";
 body.style.backgroundColor = "#ffffff";
 body.style.fontFamily = "Arial, sans-serif";
 body.style.minHeight = "100vh";
 
+// Styling(panel and inputContainer)
 inputContainer.style.width = "100%";
 inputContainer.style.height = "140px";
 inputContainer.style.boxSizing = "border-box";
@@ -39,6 +43,7 @@ inputContainer.style.backgroundColor = "#fefec0";
 inputContainer.style.padding = "12px";
 inputContainer.style.display = "flex";
 inputContainer.style.flexDirection = "column";
+
 panel.style.width = "96%";
 panel.style.minHeight = "calc(100vh - 100px)";
 panel.style.boxSizing = "border-box";
@@ -53,7 +58,7 @@ panel.style.flexDirection = "column";
 panel.style.alignItems = "center";
 panel.style.gap = "16px";
 
-
+// Styling(heading, textarea, addButton)
 heading.style.fontFamily = "'DM Serif Display', cursive";
 heading.style.fontSize = "32px";
 heading.style.margin = "0 0 24px 0";
@@ -70,7 +75,6 @@ textarea.style.boxShadow = "none";
 textarea.style.resize = "none";
 textarea.style.fontSize = "20px";
 
-
 addButton.style.position = "absolute";
 addButton.style.bottom = "4px";
 addButton.style.right = "4px";
@@ -80,7 +84,7 @@ addButton.style.padding = "2px 5px";
 addButton.style.fontSize = "10px";
 
 
-
+// Creating and styling notesSection
 const notesSection = document.createElement("div");
 notesSection.id = "notes-section";
 
@@ -92,16 +96,18 @@ notesSection.style.justifyItems = "stretch";
 notesSection.appendChild(inputContainer);
 panel.appendChild(notesSection);
 
-const noteColors = ["#d1e1ff", "#fefffe"];
-let noteCount = 0;
 
+const noteColors = ["#d1e1ff", "#fefffe"]; // using two colors for notes to alternate between them
+let noteCount = 0;
 const notes = [];
+
 
 addButton.addEventListener("click", () => {
     const text = textarea.value.trim();
     
     if (text === "") return;
 
+    // Create a note element and styling it
     const note = document.createElement("div");
     note.classList.add("note");
 
@@ -115,8 +121,10 @@ addButton.addEventListener("click", () => {
     note.style.borderRadius = "3px";
     note.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.12)";
 
+    // Create a delete button for the note  and styling it
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
+
     deleteButton.style.backgroundColor = "#e54b3a";
     deleteButton.style.color = "white";
     deleteButton.style.border = "none";
@@ -131,12 +139,15 @@ addButton.addEventListener("click", () => {
     deleteButton.addEventListener("click", () => {
     const index = notes.indexOf(note);
 
+
+    // Remove the note from the notes array if it exists
     if (index !== -1) {
         notes.splice(index, 1);
     }
 
     note.remove();
 
+    // Re-grid the remaining notes after deletion
     notes.forEach((n, i) => {
     n.style.gridColumn = "auto";
     n.style.gridRow = "auto";
@@ -152,15 +163,17 @@ addButton.addEventListener("click", () => {
 });
 });
 
+// Create a paragraph element for the note text and styling it
     const noteText = document.createElement("p");
     noteText.textContent = text;
     noteText.style.margin = "3px 12px 0 2px";
     noteText.style.textAlign = "left";
     noteText.style.fontSize = "20px";
-g
+
 
 notes.push(note);
 
+// Grid allignment Logic
 notes.forEach((n, i) => {
     n.style.gridColumn = "auto";
     n.style.gridRow = "auto";
