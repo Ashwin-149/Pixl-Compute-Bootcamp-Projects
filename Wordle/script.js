@@ -170,16 +170,41 @@ submitButton.addEventListener("click", () => {
     });
 
     // Check the guess against the target word and color the cells accordingly
+    const remainingLetters = [...targetWord];
+
+    //checking for green
     [...guess].forEach((letter, i) => {
         const cell = cells[currentRow * 5 + i];
 
         if (letter === targetWord[i]) {
             cell.style.backgroundColor = "green";
             cell.style.color = "white";
-        } else if (targetWord.includes(letter)) {
+
+            // This occurrence has been used
+            remainingLetters[i] = null;
+        }
+    });
+
+    //checking for yellow and grey
+    [...guess].forEach((letter, i) => {
+        const cell = cells[currentRow * 5 + i];
+
+        
+        if (letter === targetWord[i]) {
+            return;
+        }
+
+        const matchIndex = remainingLetters.indexOf(letter);
+
+        if (matchIndex !== -1) {
+            
             cell.style.backgroundColor = "yellow";
             cell.style.color = "black";
+
+            
+            remainingLetters[matchIndex] = null;
         } else {
+            
             cell.style.backgroundColor = "grey";
             cell.style.color = "white";
         }
@@ -201,5 +226,22 @@ submitButton.addEventListener("click", () => {
         submitButton.disabled = true;
     }
 
+    input.value = ""; // Clear the input field for the next guess
+    input.focus();
+
 });
+
+//To prevent numbers from being entered in the input field
+input.addEventListener("input", () => {
+    input.value = input.value.replace(/[0-9]/g, "");
+});
+
+// Allow pressing Enter key to submit the guess
+input.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        submitButton.click();
+    }
+});
+
+
 
