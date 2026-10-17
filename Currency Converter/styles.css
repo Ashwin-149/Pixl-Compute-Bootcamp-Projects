@@ -107,7 +107,7 @@ input {
 }
 
 /* Convert button */
-button {
+#convert-button {
     width: 350px;
     max-width: 100%;
     margin: 5px 0;
@@ -117,12 +117,11 @@ button {
     background-color: #007bff;
     color: white;
     font-size: 16px;
-    cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-    background-color: #0069d9;
+#convert-button:hover {
+    background-color: #1876da;
 }
 
 /* Result and error messages */
@@ -160,4 +159,29 @@ button:hover {
         font-size: 11px;
     }
 }
+
+/* Swap Button */
+#swap-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    background-color: #ffffff;
+    color: #333333;
+    border: 2px solid #dddddd;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#swap-button:hover {
+    background-color: #333333;
+    color: white;
+    border-color: #333333;
+}
+
 

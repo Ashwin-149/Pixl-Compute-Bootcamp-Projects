@@ -1,9 +1,9 @@
-const apiKeyCountries = COUNTRIES_API_KEY;//replace with your actual API key for countries API
+const apiKeyCountries = COUNTRIES_API_KEY;//replace with actual API key for countries API
 const countriesApiEndpointForFirstFetch = `https://api.restcountries.com/countries/v5?response_fields=names.common,currencies,flag.emoji&limit=100&offset=0&api-key=${apiKeyCountries}&pretty=1`;
 const countriesApiEndpointForSecondFetch = `https://api.restcountries.com/countries/v5?response_fields=names.common,currencies,flag.emoji&limit=100&offset=100&api-key=${apiKeyCountries}&pretty=1`;
 const countriesApiEndpointForThirdFetch = `https://api.restcountries.com/countries/v5?response_fields=names.common,currencies,flag.emoji&limit=100&offset=200&api-key=${apiKeyCountries}&pretty=1`;
 
-const apiKeyCurrency = CURRENCY_API_KEY;//replace with your actual API key for currency conversion
+const apiKeyCurrency = CURRENCY_API_KEY;//replace with actual API key for currency conversion
 const currencyApiEndpoint = `https://v6.exchangerate-api.com/v6/${apiKeyCurrency}/pair/`;
 
 let countries;
@@ -18,6 +18,7 @@ const toCountries = document.getElementById("to-countries");
 
 const amountInput = document.getElementById("amount-input");
 const convertButton = document.getElementById("convert-button");
+const swapButton = document.getElementById("swap-button");
 
 // Function to fetch country details and populate the dropdowns
 async function getCountryDetails(){
@@ -106,26 +107,41 @@ const addOptions = (countries) =>{
     toCountryCode = toCountries.value;
 }
 
+//Function to swap currencies
+const swapCurrencyCodes = () => {
+    const temp = fromCountryCode;
+    fromCountryCode = toCountryCode;
+    toCountryCode = temp;
+
+    fromCountries.value = fromCountryCode;
+    toCountries.value = toCountryCode;
+
+    resultLabel.hidden = true;
+}
+
+const hideErrorAndResultLabels = () => {
+    errorLabel.hidden = true;
+    resultLabel.hidden = true;
+}
+
 // Event listener for fromCountries dropdown change
 fromCountries.addEventListener("change", (event) => {
     fromCountryCode = event.target.value;
-    errorLabel.hidden = true;
-    resultLabel.hidden = true;
+    hideErrorAndResultLabels();
 });
 
 // Event listener for toCountries dropdown change
 toCountries.addEventListener("change", (event) => {
     toCountryCode = event.target.value;
-    errorLabel.hidden = true;
-    resultLabel.hidden = true;
+    hideErrorAndResultLabels();
 });
 
 // Event listener for amount input change(last error is hidden when input is changed)
 amountInput.addEventListener("input", () => {
-    errorLabel.hidden = true;
+    hideErrorAndResultLabels();
 });
 
-// Event listener for convert button click
+// Event listener for convert button
 convertButton.addEventListener("click", () => {
     //checking if both currencies are selected
     if(!fromCountryCode || !toCountryCode){
@@ -145,5 +161,15 @@ convertButton.addEventListener("click", () => {
     convertCurrency(fromCountryCode, toCountryCode, amount);
 });
 
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        convertButton.click();
+    }
+});
+
+swapButton.addEventListener("click", () => {
+    swapCurrencyCodes();
+});
 
 getCountryDetails();
