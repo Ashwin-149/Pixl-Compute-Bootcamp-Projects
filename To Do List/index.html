@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div id="heading-and-search-container">
+        <h1>To-Do List</h1>
+        <input type="text" id="search-input" placeholder="Search tasks...">
+    </div>
+
+    <div id="input-container">
+        <input type="text" id="task-input" placeholder="Add your task here">
+        <input type="date" id="date-input">
+        <input type="time" id="time-input">
+        <button id="add-task-button">Add Task</button>
+    </div>
+
+    <div id="tasks-container">
+
+    </div>
+
+    <div id="message-popup">
+        <div id="message-box">
+            <button id="close-message-button">&times;</button>
+            <p id="message-text">Please fill in all fields.</p>
+            <button id="message-ok-button">OK</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>
